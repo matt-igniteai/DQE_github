@@ -1,3 +1,4 @@
+import streamlit as st
 import pandas as pd
 import os
 from dotenv import load_dotenv
@@ -25,19 +26,19 @@ def load_data(uploaded_file):
 def get_llm(llm_name):
     """Initializes and returns the chosen LLM."""
     if llm_name == "OpenAI":
-        api_key = os.getenv("OAI_API_KEY")
+        api_key = st.secrets.get("OAI_API_KEY")
         if not api_key:
             raise ValueError("OPENAI_API_KEY not found in environment variables.")
         # Use gpt-4o or gpt-4-turbo for better performance with agents
         return ChatOpenAI(model="gpt-4o", api_key=api_key, temperature=0)
     elif llm_name == "Google Gemini":
-        api_key = os.getenv("GEM_API_KEY")
+        api_key = st.secrets.get("GEM_API_KEY")
         if not api_key:
             raise ValueError("GOOGLE_API_KEY not found in environment variables.")
         # Use a suitable Gemini model
         return ChatGoogleGenerativeAI(model="gemini-2.5-flash-preview-04-17", google_api_key=api_key, temperature=0)
     elif llm_name == "DeepSeek":
-        api_key = os.getenv("DEEP_API_KEY")
+        api_key = st.secrets.get("DEEP_API_KEY")
         if not api_key:
             raise ValueError("DEEPSEEK_API_KEY not found in environment variables.")
         # Use a suitable DeepSeek model
