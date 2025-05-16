@@ -12,13 +12,11 @@ import sys # To potentially capture stdout/stderr from exec
 load_dotenv(".env") # Load environment variables
 
 # --- Company Branding Configuration ---
-# Replace with your company's actual colors (using hex codes)
 COMPANY_PRIMARY_COLOR = "#000000" # Example: A shade of blue
 COMPANY_SECONDARY_COLOR = "#F0F2F6" # Example: A light grey for backgrounds
 COMPANY_TEXT_COLOR = "#333333" # Example: Dark grey/black for text
 COMPANY_ACCENT_COLOR = "#007BFF" # Example: For links or highlights
 
-# Replace with the path to your company logo image file
 # Make sure the logo file is in a place accessible to your app
 LOGO_PATH = "images/IGNITE-AI-PARTNERS-LOGO-HOT-ORANGE-No-Margin-300x84.png"
 
@@ -212,18 +210,10 @@ if st.session_state.results:
                     'pd': pd # Include pandas just in case
                 }
 
-                # Execute the generated code
-                # We can capture stdout/stderr if needed for debugging exec issues
-                # old_stdout = sys.stdout
-                # redirect_output = io.StringIO()
-                # sys.stdout = redirect_output
-
                 # Remove plt.show() if it exists, as it interferes with Streamlit
                 code_to_execute = generated_code.replace("plt.show()", "")
 
                 exec(code_to_execute, exec_scope)
-
-                # sys.stdout = old_stdout # Restore stdout
 
                 # Check if a figure was created
                 if plt.gcf().get_axes(): # Check if the current figure has any axes (meaning something was plotted)
@@ -233,8 +223,7 @@ if st.session_state.results:
 
             except Exception as e:
                 st.error(f"Error executing plotting code: {e}")
-                # Optionally display captured output
-                # st.text("Captured Output:\n" + redirect_output.getvalue())
+
             finally:
                 # Close all figures to free up memory and prevent them from showing up unexpectedly
                 plt.close('all')

@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import os
-from dotenv import load_dotenv
 from langchain_experimental.agents import create_pandas_dataframe_agent
 from langchain_openai import ChatOpenAI
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -11,7 +10,6 @@ import re # For parsing agent output
 import json # Import json
 import tabulate
 
-load_dotenv(".env") # Load environment variables
 
 def load_data(uploaded_file):
     """Loads data from an uploaded file into a pandas DataFrame."""
