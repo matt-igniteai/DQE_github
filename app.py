@@ -104,7 +104,7 @@ if 'results' not in st.session_state:
 if 'query' not in st.session_state:
     st.session_state.query = ""
 if 'llm_name' not in st.session_state:
-    st.session_state.llm_name = "OpenAI" # Default LLM
+    st.session_state.llm_name = "DeepSeek" # Default LLM
 
 # --- File Upload ---
 st.sidebar.header("Upload Data")
@@ -234,7 +234,11 @@ if st.session_state.results:
         # Display Verbal Explanation
         st.subheader("Verbal Explanation")
         # Access the 'explanation' key from the parsed JSON
-        st.markdown(results.get('explanation', 'No explanation provided in JSON.')) # Use markdown to render formatting
+        verbal_exp = results.get('explanation', 'No explanation provided in JSON.') # Use markdown to render formatting
+        scrollable_box_html = f"""<div style="height: 300px; overflow-y: auto; border: 1px solid #e6e6e6; padding: 10px; border-radius: 5px;">
+                                    <p>{verbal_exp}</p>
+                                    </div>)"""
+        st.markdown(scrollable_box_html, unsafe_allow_html=True)
 
         # Optional: Display raw output for debugging
         with st.expander("View Raw Agent Output"):
